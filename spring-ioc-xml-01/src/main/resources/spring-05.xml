@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+        <!-- init-method: 指定 Bean 實例化時會調用的方法
+             destroy-method: 指定 Bean 被銷毀時會調用的方法
+             Spring IOC 容器就會在特定的時間節點，去調用這些方法
+        -->
+        <bean id="javaBean" class="com.atguigu.ioc_04.JavaBean" init-method="init" destroy-method="clear"/>
+</beans>

@@ -1,6 +1,7 @@
 package com.atguigu.test;
 
 import com.atguigu.ioc_03.HappyComponent;
+import com.atguigu.ioc_04.JavaBean;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -66,5 +67,12 @@ public class SpringIOCTest {
                 true
                 true
          */
+    }
+
+    @Test
+    public void BeanLifeCycleTest() {
+        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("spring-05.xml");
+        // 必須手動的釋放 IOC Container 才會去調用 Bean 的 destroy-method
+        applicationContext.close();
     }
 }
