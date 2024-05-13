@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+<!-- 無參Contructor、靜態工廠、非靜態工廠 的要求就是 Class 必須有者 無參Contructor   -->
+<!-- 1. 使用 無參Contructor 實例化物件的 Class，進行 IOC 配置的範例 -->
+    <!--
+         - id: 代表的是這個 bean 的唯一標識。所以不得跟其他 bean 重複。
+         - class: 指定要變成 bean 的 class 是誰。
+         - 默認配置下， bean 是 singleton 的。
+         - 一個 bean 標籤就是一個 IOC組件(Bean)。
+         - 以下範例實例化了兩個 singleton 的 bean。
+    -->
+    <bean id="happyComponet1" class="com.atguigu.ioc_01.HappyComponent"/>
+    <bean id="happyComponet2" class="com.atguigu.ioc_01.HappyComponent"/>
+<!-- 2. 使用 靜態工廠 實例化物件的 CLass，進行 IOC 配置的範例   -->
+    <!--
+         - id:同 1。
+         - class: 指定的是 靜態工廠 的 Class。
+         - factory-method: 靜態工廠方法
+         - Spring 會調用指定的 class 的 factory-method 來創建 bean
+         個人猜測: 當使用靜態工廠時，只要指定 工廠類及方法 即可，Spring 應該會自動將 return 回來
+         的物件放入 Spring IOC Containter
+    -->
+    <bean id="clientService1" class="com.atguigu.ioc_01.ClientService" factory-method="createInstance"/>
+<!-- 3. 使用 非靜態工廠 實例化物件的 Class，進行 IOC 配置的範例   -->
+    <!-- 3.1 先配置 非靜態工廠 Class 成為 bean    -->
+    <bean id="DefaultServiceLocator1" class="com.atguigu.ioc_01.DefaultServiceLocator"/>
+    <!-- 3.2 通過指定 非靜態工廠bean及方法， 來完成配置 bean 的生成方式  -->
+    <bean id="clienServiceImpl1" factory-bean="DefaultServiceLocator1" factory-method="createClientServiceInstance"/>
+</beans>
