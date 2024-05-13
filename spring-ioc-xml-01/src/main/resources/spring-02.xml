@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- 單個參數的 Contructor 依賴注入   -->
+    <!--
+        step 1. 將 object 都放入到 ioc contatiner
+        聲明的順序不會影響到 DI 賦值，譬如 userService 要注入 userDao，但不會因為先聲明 userService
+        而導致不能注入 userDao。
+    -->
+    <bean id="userDao" class="com.atguigu.ioc_02.UserDao"/>
+    <bean id="userService1" class="com.atguigu.ioc_02.UserService">
+        <!--
+            step 2. 使用 contructor 的 DI 配置
+            < contructor-arg DI 配置:
+               value:若 contructor 的參數是直接屬性值，譬如 String、int 等等就使用這個賦值。
+               ref: 若 contructor 的參數是引用數據類型，就使用這個賦值。
+        -->
+        <constructor-arg ref="userDao" />
+    </bean>
+    <!-- 多個參數的 Contructor 依賴注入    -->
+    <bean id="userService2" class="com.atguigu.ioc_02.UserService">
+        <!-- 賦值的方式又分為以下幾種:
+             - 依照 contructor 的參數順序賦值，不推薦故不展示。
+             - 依照 contructor 的參數名進行賦值，這裡展示的為此種。
+             - 依照 contructor 的參數的 index 進行賦值，譬如 contructor 的參數列表是 userDao、
+             age、userName，故對應到 index 0、1、2，不推薦故不展示。
+        -->
+        <constructor-arg name="userDao" ref="userDao"/>
+        <constructor-arg name="age" value="20"/>
+        <constructor-arg name="userName" value="小白"/>
+    </bean>
+</beans>
