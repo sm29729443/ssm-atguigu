@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+<!-- 使用 setter 方法進行 DI 的 XML 配置-->
+    
+    <bean id="movieFinder" class="com.atguigu.ioc_02.MovieFinder"/>
+    <bean id="simpleMovieLister" class="com.atguigu.ioc_02.SimpleMovieLister">
+        <!--
+             name 並不是 Class Field Name，而是 setter method 去掉 set 後首個字母小寫的值
+             在 mybatis 中，property name 也是這樣的，看 setter 後的字母是誰，而非 Field Name。
+             value、ref 則跟之前的使用方式一樣。
+        -->
+        <property name="movieName" value="大白"/>
+        <property name="movieFinder" ref="movieFinder"/>
+    </bean>
+</beans>
